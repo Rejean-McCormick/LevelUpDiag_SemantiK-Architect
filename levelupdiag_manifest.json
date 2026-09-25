@@ -1,9 +1,9 @@
 {
   "schema": "levelupdiag.manifest.v2",
   "standard": "LevelUpDiag",
-  "standard_version": "2.0.0",
+  "standard_version": "2.1.3",
   "suite_name": "LevelUpDiag for SemantiK Architect",
-  "suite_version": "2.0.0",
+  "suite_version": "2.1.3",
   "repository_mode": "external-target-specialized-diagnostics-profile",
   "control_dir_default": ".levelupdiag",
   "levels": [
@@ -164,7 +164,7 @@
     },
     {
       "id": "S50",
-      "name": "SA\u2194GF Contract",
+      "name": "SA↔GF Contract",
       "module": "levels.s50_semantik_sa_gf_contract",
       "category": "semantik_gf",
       "order": 140,
@@ -175,7 +175,7 @@
       ],
       "timeout_seconds": 180,
       "parallel_safe": true,
-      "purpose": "Validate the executable SA\u2194GF v1 operation registry, strict bridge consumption contract, and PGF-binding readiness without compiling grammar sources."
+      "purpose": "Validate the executable SA↔GF v1 operation registry, strict bridge consumption contract, and PGF-binding readiness without compiling grammar sources."
     },
     {
       "id": "S60",
@@ -189,7 +189,7 @@
       ],
       "timeout_seconds": 180,
       "parallel_safe": true,
-      "purpose": "Probe semantic\u2192communication\u2192language planning, obligation/semantic-reference coverage, and fail-closed no-fallback invariants without requiring a language RuntimeSet."
+      "purpose": "Probe semantic→communication→language planning, obligation/semantic-reference coverage, and fail-closed no-fallback invariants without requiring a language RuntimeSet."
     },
     {
       "id": "S70",
@@ -221,6 +221,69 @@
       "timeout_seconds": 1500,
       "parallel_safe": false,
       "purpose": "Execute the target repository's canonical validator and state whether a real language RuntimeSet participated in release-grade validation."
+    },
+    {
+      "id": "S90",
+      "name": "Adversarial Semantic Invariants",
+      "module": "levels.s90_semantik_adversarial_semantics",
+      "category": "semantik_deep_semantics",
+      "order": 180,
+      "required": false,
+      "depends_on": [
+        "S60",
+        "S80"
+      ],
+      "timeout_seconds": 240,
+      "parallel_safe": false,
+      "purpose": "Attack validation, obligations, coverage, deadlines, polarity and canonical operation selection with deterministic negative probes."
+    },
+    {
+      "id": "S100",
+      "name": "RuntimeSet Mutation & Release Integrity",
+      "module": "levels.s100_semantik_runtime_mutation",
+      "category": "semantik_deep_runtime",
+      "order": 190,
+      "required": false,
+      "depends_on": [
+        "S40",
+        "S50",
+        "S80"
+      ],
+      "timeout_seconds": 300,
+      "parallel_safe": false,
+      "purpose": "Build synthetic immutable RuntimeSets outside the target checkout and verify fail-closed behavior under artifact, capability, evidence, activation and version mutations."
+    },
+    {
+      "id": "S110",
+      "name": "Bridge & Lexical Adversarial Contract",
+      "module": "levels.s110_semantik_bridge_lexical_adversarial",
+      "category": "semantik_deep_bridge",
+      "order": 200,
+      "required": false,
+      "depends_on": [
+        "S50",
+        "S60",
+        "S80"
+      ],
+      "timeout_seconds": 300,
+      "parallel_safe": false,
+      "purpose": "Attack SA↔GF bridge slot/feature consumption, contract compatibility, concrete-language resolution and exact lexical binding without a real PGF."
+    },
+    {
+      "id": "S120",
+      "name": "Determinism, Concurrency & Packaging Isolation",
+      "module": "levels.s120_semantik_determinism_packaging",
+      "category": "semantik_deep_determinism",
+      "order": 210,
+      "required": false,
+      "depends_on": [
+        "S90",
+        "S100",
+        "S110"
+      ],
+      "timeout_seconds": 600,
+      "parallel_safe": false,
+      "purpose": "Repeat full renders sequentially and concurrently, then build/install/import a wheel from a temporary source copy without mutating the target checkout."
     }
   ],
   "campaigns": {
@@ -273,7 +336,7 @@
       ]
     },
     "deep": {
-      "description": "Standard SemantiK v1 diagnostics plus any explicitly declared generic validators.",
+      "description": "Adversarial SemantiK Architect campaign: standard validation plus declared validators, semantic negative tests, RuntimeSet mutation, bridge/lexical attacks, determinism/concurrency and isolated packaging.",
       "levels": [
         "N00",
         "N01",
@@ -289,7 +352,11 @@
         "S50",
         "S60",
         "S70",
-        "S80"
+        "S80",
+        "S90",
+        "S100",
+        "S110",
+        "S120"
       ]
     }
   }

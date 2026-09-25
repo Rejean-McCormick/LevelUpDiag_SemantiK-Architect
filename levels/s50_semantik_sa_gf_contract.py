@@ -65,14 +65,14 @@ print(json.dumps({"operations":sorted(V1_OPERATION_IDS),"bridge":GfBridgeRealize
     pgf_data = json_from_stdout(pgf_probe) or {}
     pgf_available = bool(pgf_data.get("pgf"))
     deployed = bool(runtime_manifest_paths(cfg))
-    verdict = "PASS" if pgf_available else ("BLOCKED" if deployed else "WARN")
+    verdict = "PASS" if (pgf_available or not deployed) else "BLOCKED"
     message = (
         "The selected Python can import the optional PGF binding."
         if pgf_available
         else (
             "A RuntimeSet is deployed but the selected Python cannot import pgf; real GF acceptance is blocked."
             if deployed
-            else "The optional pgf binding is not installed; source/contract validation is available but real-language realization is not."
+            else "No RuntimeSet is deployed, so the optional PGF binding is not required for this core-only campaign."
         )
     )
     report.add(
@@ -81,5 +81,9 @@ print(json.dumps({"operations":sorted(V1_OPERATION_IDS),"bridge":GfBridgeRealize
         "sa_gf_contract",
         message,
         evidence={"pgf_available": pgf_available, "runtime_sets_deployed": deployed},
-        recommendation=None if pgf_available else "Install the project's gf extra in the runtime Python used for real-language acceptance.",
+        recommendation=(
+            "Install the project's gf extra in the runtime Python used for real-language acceptance."
+            if deployed and not pgf_available
+            else None
+        ),
     )

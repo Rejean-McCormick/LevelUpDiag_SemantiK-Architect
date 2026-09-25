@@ -5,6 +5,10 @@ from pathlib import Path
 from levelupdiag_core.semantik import json_from_stdout, run_target_python
 
 
+def _clean_stderr(value):
+    return (value or "").strip()
+
+
 def run(cfg, report):
     p = cfg.get("semantik", {})
     sdk_methods = list(p.get("public_sdk_methods", []))
@@ -37,25 +41,48 @@ print(json.dumps({"version":semantik_architect.__version__,"sdk":{name:hasattr(S
 
     cli = run_target_python(
         cfg,
-        ["-m", "semantik_architect.adapters.inbound.cli.main", "--help"],
+        [
+            "-W",
+            "error::RuntimeWarning",
+            "-m",
+            "semantik_architect.adapters.inbound.cli.main",
+            "--help",
+        ],
         timeout=45,
     )
-    help_text = (cli.get("stdout_tail") or "") + "\n" + (cli.get("stderr_tail") or "")
-    missing_commands = [name for name in p.get("cli_commands", []) if name not in help_text]
+    stdout = cli.get("stdout_tail") or ""
+    stderr = _clean_stderr(cli.get("stderr_tail"))
+    missing_commands = [name for name in p.get("cli_commands", []) if name not in stdout]
+    cli_ok = cli.get("exit_code") == 0 and not missing_commands and not stderr
     report.add(
         "semantik.public.cli_contract",
-        "FAIL" if cli.get("exit_code") != 0 or missing_commands else "PASS",
+        "PASS" if cli_ok else "FAIL",
         "public_surface",
-        "The CLI exposes the complete v1 command surface."
-        if cli.get("exit_code") == 0 and not missing_commands
-        else "The CLI help surface is incomplete or failed to execute.",
-        evidence={"missing_commands": missing_commands, "process": cli},
+        "The CLI exposes the complete v1 command surface and emits no warnings/errors on stderr."
+        if cli_ok
+        else "The CLI help surface failed, is incomplete, or emitted unexpected stderr output.",
+        evidence={
+            "missing_commands": missing_commands,
+            "stderr_clean": not bool(stderr),
+            "runtime_warning": "RuntimeWarning" in stderr,
+            "process": cli,
+        },
+        recommendation=(
+            "Keep package __init__ modules from eagerly importing the CLI execution module; "
+            "`python -m semantik_architect.adapters.inbound.cli.main --help` must complete with empty stderr."
+            if stderr
+            else None
+        ),
     )
 
     root = Path(cfg["_target_root"])
     http_source = root / "src/semantik_architect/adapters/inbound/http/server.py"
     text = http_source.read_text(encoding="utf-8", errors="replace") if http_source.is_file() else ""
-    missing_paths = [path for path in p.get("http_paths", []) if repr(path) not in text and f'"{path}"' not in text and f"'{path}'" not in text]
+    missing_paths = [
+        path
+        for path in p.get("http_paths", [])
+        if repr(path) not in text and f'"{path}"' not in text and f"'{path}'" not in text
+    ]
     report.add(
         "semantik.public.http_contract",
         "FAIL" if missing_paths else "PASS",

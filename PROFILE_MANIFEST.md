@@ -1,10 +1,10 @@
 # LevelUpDiag SemantiK Architect profile manifest
 
-Profile version: **2.0.0**
+Profile version: **2.1.3**
 
 Target architecture: **SemantiK Architect v1 clean canonical repository**.
 
-Specialized levels: `S10` through `S80`.
+Specialized levels: `S10` through `S120`.
 
 Key profile rules:
 
@@ -18,5 +18,6 @@ Key profile rules:
 - obligation and semantic-reference coverage are tested without requiring a runtime language;
 - SDK, CLI and minimal stdlib HTTP surfaces replace assumptions about FastAPI or a frontend;
 - `standard` delegates final repository validation to `tools/validate_repository.py`;
+- `deep` adds fail-closed semantic probes, synthetic RuntimeSet corruption, bridge/lexical attacks, deterministic concurrent rendering, and isolated wheel packaging/import;
 - missing real-language RuntimeSets remain visible without being misclassified as source defects;
 - no dependency installation, network access, GF compilation, server startup or target mutation is performed.

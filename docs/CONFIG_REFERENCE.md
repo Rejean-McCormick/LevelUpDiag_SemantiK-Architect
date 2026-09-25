@@ -10,7 +10,7 @@ when present, is recursively merged over it.
 - `execution.*`: parallelism, timeouts, mutation/network policy and output bounds.
 - `scan.*`: bounded scanner limits and excluded directories.
 - `toolchain.*`: generic executable discovery.
-- `validators`: explicit additional target validators for the `deep` campaign.
+- `validators`: explicit additional target validators for the `deep` campaign; v2.1 also runs built-in adversarial S90–S120 probes independently of this list.
 - `security.*`: generic hygiene configuration.
 
 ## SemantiK v1 keys
@@ -56,3 +56,12 @@ WSL mode converts the target checkout and absolute path arguments to `/mnt/<driv
 builds a Linux `PYTHONPATH` for the configured `python_path_entries`.
 
 LevelUpDiag never installs the target dependencies itself.
+
+## Security scan scope
+
+`security.scan_untracked` controls whether N06 scans all bounded filesystem files or only Git-tracked files when the target is a Git repository.
+
+- `false` (SemantiK default): ignored/untracked local files such as a developer `.env` are outside diagnostic evidence; tracked sensitive files still generate warnings.
+- `true`: include untracked files in the security hygiene scan.
+
+If Git metadata is unavailable, N06 falls back to the bounded filesystem scan because tracked/untracked status cannot be established.

@@ -54,10 +54,12 @@ class SemantikProfileTests(unittest.TestCase):
         root = Path(__file__).resolve().parents[1]
         data = json.loads((root / "levelupdiag_manifest.json").read_text(encoding="utf-8"))
         ids = {x["id"] for x in data["levels"]}
-        self.assertTrue({"S10", "S20", "S30", "S40", "S50", "S60", "S70", "S80"}.issubset(ids))
-        self.assertEqual(data["suite_version"], "2.0.0")
+        self.assertTrue({"S10", "S20", "S30", "S40", "S50", "S60", "S70", "S80", "S90", "S100", "S110", "S120"}.issubset(ids))
+        self.assertEqual(data["suite_version"], "2.1.3")
         self.assertIn("semantik", data["campaigns"])
         self.assertIn("S80", data["campaigns"]["standard"]["levels"])
+        self.assertNotIn("S90", data["campaigns"]["standard"]["levels"])
+        self.assertEqual(data["campaigns"]["deep"]["levels"][-4:], ["S90", "S100", "S110", "S120"])
 
     def test_config_targets_clean_v1_tree(self):
         root = Path(__file__).resolve().parents[1]

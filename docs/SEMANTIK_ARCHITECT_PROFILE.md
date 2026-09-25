@@ -37,7 +37,7 @@ Override with `--target` or `levelupdiag.config.local.json`.
 - `baseline`: generic LevelUpDiag repository evidence only.
 - `semantik`: full SA v1 architecture/contracts/runtime-model probes, excluding the target's full validator.
 - `standard`: recommended; adds S80 and executes `tools/validate_repository.py`.
-- `deep`: standard plus explicitly declared generic validators.
+- `deep`: standard plus declared validators and the adversarial S90–S120 suite.
 
 ## Specialized levels
 
@@ -51,6 +51,10 @@ Override with `--target` or `levelupdiag.config.local.json`.
 | S60 | Pure semantic→communication→language planning plus positive/negative coverage invariant probe |
 | S70 | Package/SDK/CLI/minimal HTTP public surface without starting services |
 | S80 | Canonical repository validator and real-language release-input status |
+| S90 | Adversarial semantic/coverage/deadline/constraint invariants |
+| S100 | Synthetic RuntimeSet mutation and release-integrity failures |
+| S110 | SA↔GF bridge and exact lexical-binding adversarial contract |
+| S120 | Sequential/parallel determinism and isolated wheel packaging/import |
 
 ## Verdict policy
 
@@ -69,3 +73,7 @@ Override with `--target` or `levelupdiag.config.local.json`.
 The suite does not install dependencies, compile GF, generate RuntimeSets, start HTTP servers,
 modify capability manifests, or patch target source. Evidence is written only under
 `.levelupdiag/` in the target repository.
+
+## Deep campaign contract
+
+The deep suite MUST remain target-read-only. Runtime corruption is performed only on synthetic RuntimeSets under temporary directories. Packaging is tested from a temporary source copy. A failing adversarial case is a product/contract signal and MUST NOT be converted to `WARN` merely because the happy-path suite passes.

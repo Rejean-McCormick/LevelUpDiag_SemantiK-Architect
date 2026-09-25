@@ -32,6 +32,8 @@ from semantik_architect.application.planning.communication_planner import Commun
 from semantik_architect.application.planning.language_planner import GenericLanguagePlanner
 from semantik_architect.application.validation.coverage import CoverageValidator
 from semantik_architect.domain.language.lexical import LexicalPlanningContext
+from semantik_architect.domain.language.realization_unit import RealizationUnit
+from semantik_architect.domain.language.language_plan import LanguagePlan, LanguageBlockPlan
 from semantik_architect.domain.errors import SemantikArchitectError
 req=CommunicationRequest.from_dict({
  "schema_version":"1.0",
@@ -51,12 +53,18 @@ cp=CommunicationPlanner().plan(req)
 lp=GenericLanguagePlanner().plan(req,cp,LexicalPlanningContext("en",{}))
 CoverageValidator().validate_plan(req,lp)
 negative_ok=False
+negative_error=None
 try:
- bad=type(lp)(lp.plan_id,lp.language,lp.locale,lp.blocks,(),lp.capability_profile)
+ unit=lp.units[0]
+ bad_unit=RealizationUnit("u_missing", unit.operation_id, unit.role_bindings, unit.feature_bindings, unit.lexical_slots, (), unit.semantic_refs, "b_missing")
+ bad=LanguagePlan("lp_missing", lp.language, lp.locale, (LanguageBlockPlan("b_missing","utterance",("u_missing",),()),), (bad_unit,), lp.capability_profile)
  CoverageValidator().validate_plan(req,bad)
-except (SemantikArchitectError,ValueError):
- negative_ok=True
-print(json.dumps({"communication_items":len(cp.items),"operation":lp.units[0].operation_id,"obligations":list(lp.units[0].obligation_ids),"semantic_refs":list(lp.units[0].semantic_refs),"negative_coverage_rejected":negative_ok}))
+except SemantikArchitectError as exc:
+ negative_error=exc.envelope.code
+ negative_ok=negative_error == "SA-SEM-002"
+except Exception as exc:
+ negative_error=type(exc).__name__ + ":" + str(exc)
+print(json.dumps({"communication_items":len(cp.items),"operation":lp.units[0].operation_id,"obligations":list(lp.units[0].obligation_ids),"semantic_refs":list(lp.units[0].semantic_refs),"negative_coverage_rejected":negative_ok,"negative_coverage_error":negative_error}))
 '''
     probe = run_target_python(cfg, ["-c", script], timeout=60)
     data = json_from_stdout(probe)
