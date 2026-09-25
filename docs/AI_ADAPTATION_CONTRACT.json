@@ -1,0 +1,32 @@
+{
+  "schema": "levelupdiag.ai-adaptation-contract.v1",
+  "objective": "Customize this copied neutral frame for the real target repository without importing assumptions from another application.",
+  "invariants": [
+    "Inspect target evidence before proposing target-specific levels.",
+    "Prefer existing public target validators over duplicated checks.",
+    "Do not assume a web UI, API, service, database, package manager, language, test framework, or release model.",
+    "Keep target mutation disabled by default.",
+    "Use stable finding IDs and bounded evidence.",
+    "Do not accept required SKIP/BLOCKED/PARTIAL as PASS.",
+    "Add dependencies only when a level truly cannot produce useful evidence without them.",
+    "Remove or merge levels when the target model is simpler; numbering symmetry is not a goal."
+  ],
+  "adaptable_surfaces": [
+    "levelupdiag_manifest.json",
+    "levelupdiag.config.json",
+    "levelupdiag_core/",
+    "levels/",
+    "schemas/",
+    "docs/",
+    "launchers/"
+  ],
+  "recommended_sequence": [
+    "run baseline",
+    "inspect inventory and target documentation",
+    "identify canonical validators",
+    "declare safe validators",
+    "add only target-justified levels",
+    "define campaign completeness policy",
+    "test diagnostics frame itself"
+  ]
+}

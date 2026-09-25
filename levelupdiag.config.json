@@ -1,0 +1,276 @@
+{
+  "schema": "levelupdiag.config.v2",
+  "target_repo_root": "C:\\mycode\\SemantiK_Architect\\SemantiK_Architect",
+  "control_dir": ".levelupdiag",
+  "execution": {
+    "max_parallel": 4,
+    "default_timeout_seconds": 120,
+    "fail_fast": false,
+    "capture_limit_kb": 256,
+    "protect_tracked_files": true,
+    "allow_target_mutation": false,
+    "allow_network": false
+  },
+  "scan": {
+    "exclude_dirs": [
+      ".git",
+      ".hg",
+      ".svn",
+      ".levelupdiag",
+      "node_modules",
+      "vendor",
+      "dist",
+      "build",
+      "target",
+      ".venv",
+      "venv",
+      "__pycache__",
+      ".cache",
+      "coverage",
+      "htmlcov",
+      ".tox",
+      ".mypy_cache",
+      ".pytest_cache"
+    ],
+    "max_files": 20000,
+    "max_file_bytes": 1048576,
+    "max_security_files": 4000,
+    "large_file_bytes": 10485760
+  },
+  "toolchain": {
+    "required": [
+      "python"
+    ],
+    "optional": [
+      "git"
+    ]
+  },
+  "validators": [],
+  "security": {
+    "enabled": true,
+    "scan_untracked": false,
+    "additional_patterns": [],
+    "additional_excluded_globs": []
+  },
+  "redaction": {
+    "enabled": true,
+    "replacement": "<REDACTED>"
+  },
+  "semantik": {
+    "python_executable": "python",
+    "python_execution": "native",
+    "minimum_python": [
+      3,
+      12
+    ],
+    "python_path_entries": [
+      "src"
+    ],
+    "local_packages": [
+      "semantik_architect"
+    ],
+    "active_python_roots": [
+      "src/semantik_architect",
+      "tests",
+      "tools"
+    ],
+    "required_paths": [
+      "README.md",
+      "LICENSE",
+      "pyproject.toml",
+      "DOCUMENTATION_MANIFEST.md",
+      "VALIDATION_REPORT.md",
+      "docs/02_ARCHITECTURE_LOCK.md",
+      "docs/03_DOMAIN_MODEL_LOCK.md",
+      "docs/04_COMMUNICATION_SEMANTICS_LOCK.md",
+      "docs/05_LANGUAGE_PLANNING_LOCK.md",
+      "docs/06_SA_GF_CONTRACT_LOCK.md",
+      "docs/07_LEXICAL_CONTRACT_LOCK.md",
+      "docs/08_RUNTIME_ARTIFACT_LOCK.md",
+      "docs/09_LANGUAGE_CONFORMANCE_LOCK.md",
+      "docs/10_PORTS_ADAPTERS_LOCK.md",
+      "docs/11_FAITHFULNESS_LOCK.md",
+      "docs/12_FAILURE_ERROR_LOCK.md",
+      "docs/14_TESTING_RELEASE_LOCK.md",
+      "docs/16_AI_IMPLEMENTATION_GUARDRAILS.md",
+      "docs/17_REPOSITORY_STRUCTURE_LOCK.md",
+      "docs/21_INTERFILE_CONTRACT_LOCK.md",
+      "docs/22_IMPLEMENTATION_STATUS.md",
+      "docs/reference/GF_BRIDGE_SPEC.md",
+      "docs/reference/PLANNING_HINTS.md",
+      "runtime/README.md",
+      "schemas/communication_request.schema.json",
+      "schemas/communication_result.schema.json",
+      "schemas/runtime_manifest.schema.json",
+      "schemas/capability_manifest.schema.json",
+      "schemas/capability_profile.schema.json",
+      "schemas/error_envelope.schema.json",
+      "schemas/sa_gf_contract.schema.json",
+      "schemas/gf_bridge_spec.schema.json",
+      "schemas/lexical_artifact.schema.json",
+      "schemas/conformance_suite.schema.json",
+      "schemas/runtime_activation.schema.json",
+      "src/semantik_architect/__init__.py",
+      "src/semantik_architect/domain/communication/request.py",
+      "src/semantik_architect/domain/communication/result.py",
+      "src/semantik_architect/domain/semantics/graph.py",
+      "src/semantik_architect/domain/semantics/obligations.py",
+      "src/semantik_architect/domain/language/language_plan.py",
+      "src/semantik_architect/domain/language/operations.py",
+      "src/semantik_architect/application/planning/communication_planner.py",
+      "src/semantik_architect/application/planning/language_planner.py",
+      "src/semantik_architect/application/validation/coverage.py",
+      "src/semantik_architect/application/use_cases/render_communication.py",
+      "src/semantik_architect/adapters/runtime/filesystem/catalog.py",
+      "src/semantik_architect/adapters/runtime/filesystem/capabilities.py",
+      "src/semantik_architect/adapters/lexical/local_lexicon/json_lexicon.py",
+      "src/semantik_architect/adapters/realization/gf/bridge.py",
+      "src/semantik_architect/adapters/realization/gf/pgf_runtime.py",
+      "src/semantik_architect/adapters/inbound/python_sdk/sdk.py",
+      "src/semantik_architect/adapters/inbound/cli/main.py",
+      "src/semantik_architect/adapters/inbound/http/server.py",
+      "src/semantik_architect/conformance/release.py",
+      "tools/validate_repository.py",
+      "tools/build_runtime_manifest.py"
+    ],
+    "forbidden_paths": [
+      "app",
+      "architect_frontend",
+      "gf-rgl",
+      "builder",
+      "ai_services",
+      "discourse",
+      "nlg",
+      "registry",
+      "src/semantik_architect/adapters/engines",
+      "src/semantik_architect/legacy",
+      "src/semantik_architect/compat_old"
+    ],
+    "forbidden_globs": [
+      "**/*family_engine*.py",
+      "**/*safe_mode*.py",
+      "**/ConstructionPlan*.py",
+      "**/*.gf"
+    ],
+    "forbidden_import_prefixes": [
+      "app",
+      "builder",
+      "ai_services"
+    ],
+    "core_forbidden_import_prefixes": [
+      "pgf",
+      "fastapi",
+      "flask",
+      "django",
+      "semantik_architect.adapters"
+    ],
+    "application_forbidden_import_prefixes": [
+      "pgf",
+      "fastapi",
+      "flask",
+      "django",
+      "semantik_architect.adapters"
+    ],
+    "schema_files": [
+      "schemas/communication_request.schema.json",
+      "schemas/communication_result.schema.json",
+      "schemas/runtime_manifest.schema.json",
+      "schemas/capability_manifest.schema.json",
+      "schemas/capability_profile.schema.json",
+      "schemas/error_envelope.schema.json",
+      "schemas/sa_gf_contract.schema.json",
+      "schemas/gf_bridge_spec.schema.json",
+      "schemas/lexical_artifact.schema.json",
+      "schemas/conformance_suite.schema.json",
+      "schemas/runtime_activation.schema.json"
+    ],
+    "schema_example_pairs": [
+      [
+        "examples/orgo_fr_request.json",
+        "schemas/communication_request.schema.json"
+      ],
+      [
+        "examples/orgo_fr_result.json",
+        "schemas/communication_result.schema.json"
+      ]
+    ],
+    "runtime_root": "runtime",
+    "runtime_manifest_globs": [
+      "runtime.manifest.json",
+      "*.runtime.json"
+    ],
+    "required_operations": [
+      "discourse.greeting",
+      "discourse.closing",
+      "clause.intransitive_event",
+      "clause.transitive_event",
+      "clause.ditransitive_event",
+      "clause.copular_classification",
+      "clause.copular_attribute",
+      "clause.existential",
+      "clause.locative",
+      "clause.possession",
+      "clause.passive_event",
+      "question.polar",
+      "question.content",
+      "directive.action",
+      "coordination.clause",
+      "relative.subject",
+      "relative.object",
+      "nominal.apposition",
+      "comparison.comparative",
+      "comparison.superlative"
+    ],
+    "public_sdk_methods": [
+      "render",
+      "validate_request",
+      "explain",
+      "capabilities",
+      "validate_runtime"
+    ],
+    "http_paths": [
+      "/health",
+      "/ready",
+      "/v1/capabilities",
+      "/v1/render",
+      "/v1/validate-request",
+      "/v1/explain"
+    ],
+    "cli_commands": [
+      "render",
+      "validate-request",
+      "explain",
+      "capabilities",
+      "validate-runtime",
+      "conformance",
+      "serve"
+    ],
+    "optional_runtime_modules": [
+      "pgf"
+    ],
+    "development_modules": [
+      "pytest",
+      "jsonschema"
+    ],
+    "canonical_validator": "tools/validate_repository.py",
+    "required_optional_distributions": {
+      "gf": [
+        "pgf"
+      ],
+      "dev": [
+        "pytest",
+        "jsonschema"
+      ]
+    },
+    "forbidden_runtime_distributions": [
+      "fastapi",
+      "pydantic",
+      "pydantic-settings",
+      "structlog",
+      "dependency-injector",
+      "redis",
+      "arq",
+      "boto3"
+    ]
+  }
+}

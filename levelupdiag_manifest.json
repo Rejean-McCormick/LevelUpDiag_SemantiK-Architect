@@ -1,0 +1,296 @@
+{
+  "schema": "levelupdiag.manifest.v2",
+  "standard": "LevelUpDiag",
+  "standard_version": "2.0.0",
+  "suite_name": "LevelUpDiag for SemantiK Architect",
+  "suite_version": "2.0.0",
+  "repository_mode": "external-target-specialized-diagnostics-profile",
+  "control_dir_default": ".levelupdiag",
+  "levels": [
+    {
+      "id": "N00",
+      "name": "Diagnostic Integrity",
+      "module": "levels.n00_diagnostic_integrity",
+      "category": "diagnostics",
+      "order": 0,
+      "required": true,
+      "depends_on": [],
+      "timeout_seconds": 60,
+      "parallel_safe": true,
+      "purpose": "Validate the diagnostics frame before trusting its output."
+    },
+    {
+      "id": "N01",
+      "name": "Target Context",
+      "module": "levels.n01_target_context",
+      "category": "context",
+      "order": 10,
+      "required": true,
+      "depends_on": [
+        "N00"
+      ],
+      "timeout_seconds": 60,
+      "parallel_safe": true,
+      "purpose": "Resolve target, runtime context, VCS state, paths and basic executability."
+    },
+    {
+      "id": "N02",
+      "name": "Repository Inventory",
+      "module": "levels.n02_repository_inventory",
+      "category": "inventory",
+      "order": 20,
+      "required": true,
+      "depends_on": [
+        "N01"
+      ],
+      "timeout_seconds": 120,
+      "parallel_safe": true,
+      "purpose": "Collect bounded technology-neutral evidence about repository shape and capabilities."
+    },
+    {
+      "id": "N03",
+      "name": "Repository Hygiene",
+      "module": "levels.n03_repository_hygiene",
+      "category": "hygiene",
+      "order": 30,
+      "required": true,
+      "depends_on": [
+        "N02"
+      ],
+      "timeout_seconds": 180,
+      "parallel_safe": true,
+      "purpose": "Detect repository-level integrity and hygiene hazards."
+    },
+    {
+      "id": "N04",
+      "name": "Tooling Discovery",
+      "module": "levels.n04_tooling_discovery",
+      "category": "tooling",
+      "order": 40,
+      "required": true,
+      "depends_on": [
+        "N02"
+      ],
+      "timeout_seconds": 120,
+      "parallel_safe": true,
+      "purpose": "Discover project manifests, automation surfaces and candidate tools without making them mandatory."
+    },
+    {
+      "id": "N05",
+      "name": "Declared Validations",
+      "module": "levels.n05_declared_validations",
+      "category": "validation",
+      "order": 50,
+      "required": true,
+      "depends_on": [
+        "N01",
+        "N02"
+      ],
+      "timeout_seconds": 1800,
+      "parallel_safe": false,
+      "purpose": "Execute only validations explicitly declared by the local diagnostics configuration."
+    },
+    {
+      "id": "N06",
+      "name": "Security Hygiene",
+      "module": "levels.n06_security_hygiene",
+      "category": "security_hygiene",
+      "order": 60,
+      "required": true,
+      "depends_on": [
+        "N02"
+      ],
+      "timeout_seconds": 180,
+      "parallel_safe": true,
+      "purpose": "Perform bounded conservative hygiene checks without claiming a security audit."
+    },
+    {
+      "id": "S10",
+      "name": "Architecture Lock",
+      "module": "levels.s10_semantik_architecture_lock",
+      "category": "semantik_architecture",
+      "order": 100,
+      "required": true,
+      "depends_on": [
+        "N01",
+        "N02"
+      ],
+      "timeout_seconds": 120,
+      "parallel_safe": true,
+      "purpose": "Verify the v1 architecture locks, canonical src tree, required schemas/source contracts, and absence of competing application/grammar trees."
+    },
+    {
+      "id": "S20",
+      "name": "Python Architecture Integrity",
+      "module": "levels.s20_semantik_python_architecture",
+      "category": "semantik_python",
+      "order": 110,
+      "required": true,
+      "depends_on": [
+        "S10"
+      ],
+      "timeout_seconds": 180,
+      "parallel_safe": true,
+      "purpose": "Parse active Python sources, resolve src-layout imports, enforce hexagonal dependency direction, confine PGF to the adapter, and reject per-language core branching."
+    },
+    {
+      "id": "S30",
+      "name": "Contract & Schema Integrity",
+      "module": "levels.s30_semantik_contracts",
+      "category": "semantik_contracts",
+      "order": 120,
+      "required": true,
+      "depends_on": [
+        "S10"
+      ],
+      "timeout_seconds": 180,
+      "parallel_safe": true,
+      "purpose": "Validate the eleven public/runtime schemas, canonical examples, unique schema identities, and documentation-manifest alignment."
+    },
+    {
+      "id": "S40",
+      "name": "RuntimeSet & Capability Model",
+      "module": "levels.s40_semantik_runtime_sets",
+      "category": "semantik_runtime",
+      "order": 130,
+      "required": true,
+      "depends_on": [
+        "S20",
+        "S30"
+      ],
+      "timeout_seconds": 240,
+      "parallel_safe": true,
+      "purpose": "Inspect composed immutable RuntimeSets, pinned artifact hashes, capability manifests and public release validation when runtime artifacts are deployed."
+    },
+    {
+      "id": "S50",
+      "name": "SA\u2194GF Contract",
+      "module": "levels.s50_semantik_sa_gf_contract",
+      "category": "semantik_gf",
+      "order": 140,
+      "required": true,
+      "depends_on": [
+        "S20",
+        "S30"
+      ],
+      "timeout_seconds": 180,
+      "parallel_safe": true,
+      "purpose": "Validate the executable SA\u2194GF v1 operation registry, strict bridge consumption contract, and PGF-binding readiness without compiling grammar sources."
+    },
+    {
+      "id": "S60",
+      "name": "Faithfulness & Planning Invariants",
+      "module": "levels.s60_semantik_faithfulness",
+      "category": "semantik_faithfulness",
+      "order": 150,
+      "required": true,
+      "depends_on": [
+        "S20"
+      ],
+      "timeout_seconds": 180,
+      "parallel_safe": true,
+      "purpose": "Probe semantic\u2192communication\u2192language planning, obligation/semantic-reference coverage, and fail-closed no-fallback invariants without requiring a language RuntimeSet."
+    },
+    {
+      "id": "S70",
+      "name": "Public SDK / CLI / HTTP Surface",
+      "module": "levels.s70_semantik_public_surfaces",
+      "category": "semantik_public_surface",
+      "order": 160,
+      "required": true,
+      "depends_on": [
+        "S20"
+      ],
+      "timeout_seconds": 180,
+      "parallel_safe": true,
+      "purpose": "Import the canonical package and verify the public Python SDK, CLI commands, and minimal HTTP route surface without starting a server."
+    },
+    {
+      "id": "S80",
+      "name": "Canonical Validation & Conformance",
+      "module": "levels.s80_semantik_validation",
+      "category": "semantik_validation",
+      "order": 170,
+      "required": false,
+      "depends_on": [
+        "S30",
+        "S50",
+        "S60",
+        "S70"
+      ],
+      "timeout_seconds": 1500,
+      "parallel_safe": false,
+      "purpose": "Execute the target repository's canonical validator and state whether a real language RuntimeSet participated in release-grade validation."
+    }
+  ],
+  "campaigns": {
+    "baseline": {
+      "description": "Generic read-only repository diagnostics.",
+      "levels": [
+        "N00",
+        "N01",
+        "N02",
+        "N03",
+        "N04",
+        "N06"
+      ]
+    },
+    "semantik": {
+      "description": "SemantiK Architect v1 architecture, contracts, runtime model, faithfulness and public-surface validation without executing the full pytest suite.",
+      "levels": [
+        "N00",
+        "N01",
+        "N02",
+        "N03",
+        "N04",
+        "N06",
+        "S10",
+        "S20",
+        "S30",
+        "S40",
+        "S50",
+        "S60",
+        "S70"
+      ]
+    },
+    "standard": {
+      "description": "Primary SemantiK Architect v1 diagnostic campaign. Adds the target repository canonical validator/conformance test suite.",
+      "levels": [
+        "N00",
+        "N01",
+        "N02",
+        "N03",
+        "N04",
+        "N06",
+        "S10",
+        "S20",
+        "S30",
+        "S40",
+        "S50",
+        "S60",
+        "S70",
+        "S80"
+      ]
+    },
+    "deep": {
+      "description": "Standard SemantiK v1 diagnostics plus any explicitly declared generic validators.",
+      "levels": [
+        "N00",
+        "N01",
+        "N02",
+        "N03",
+        "N04",
+        "N05",
+        "N06",
+        "S10",
+        "S20",
+        "S30",
+        "S40",
+        "S50",
+        "S60",
+        "S70",
+        "S80"
+      ]
+    }
+  }
+}

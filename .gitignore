@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+levelupdiag.config.local.json
+*.log
+.DS_Store
+GitSink.bat
+.levelupdiag_ui.json
