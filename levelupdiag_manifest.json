@@ -1,9 +1,9 @@
 {
   "schema": "levelupdiag.manifest.v2",
   "standard": "LevelUpDiag",
-  "standard_version": "2.1.3",
+  "standard_version": "2.2.0",
   "suite_name": "LevelUpDiag for SemantiK Architect",
-  "suite_version": "2.1.3",
+  "suite_version": "2.2.0",
   "repository_mode": "external-target-specialized-diagnostics-profile",
   "control_dir_default": ".levelupdiag",
   "levels": [
@@ -117,7 +117,7 @@
       ],
       "timeout_seconds": 120,
       "parallel_safe": true,
-      "purpose": "Verify the v1 architecture locks, canonical src tree, required schemas/source contracts, and absence of competing application/grammar trees."
+      "purpose": "Verify the v1/1.2 architecture locks, canonical src tree, required schemas/source contracts, and absence of competing application/grammar trees."
     },
     {
       "id": "S20",
@@ -145,7 +145,7 @@
       ],
       "timeout_seconds": 180,
       "parallel_safe": true,
-      "purpose": "Validate the eleven public/runtime schemas, canonical examples, unique schema identities, and documentation-manifest alignment."
+      "purpose": "Validate the twelve public/runtime/boundary schemas, canonical examples, Kristal v6 ACL invariants, unique schema identities, and documentation-manifest alignment."
     },
     {
       "id": "S40",

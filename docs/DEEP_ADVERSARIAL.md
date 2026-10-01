@@ -1,6 +1,6 @@
 # Deep Adversarial Diagnostics
 
-Status: **LevelUpDiag SemantiK Architect v2.1.3**
+Status: **LevelUpDiag SemantiK Architect v2.2.0**
 
 The `deep` campaign is the bug-hunting layer above the normal release gate. It does not require a deployed real-language RuntimeSet and does not mutate the target checkout.
 

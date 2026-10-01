@@ -55,7 +55,7 @@ class SemantikProfileTests(unittest.TestCase):
         data = json.loads((root / "levelupdiag_manifest.json").read_text(encoding="utf-8"))
         ids = {x["id"] for x in data["levels"]}
         self.assertTrue({"S10", "S20", "S30", "S40", "S50", "S60", "S70", "S80", "S90", "S100", "S110", "S120"}.issubset(ids))
-        self.assertEqual(data["suite_version"], "2.1.3")
+        self.assertEqual(data["suite_version"], "2.2.0")
         self.assertIn("semantik", data["campaigns"])
         self.assertIn("S80", data["campaigns"]["standard"]["levels"])
         self.assertNotIn("S90", data["campaigns"]["standard"]["levels"])
@@ -67,6 +67,8 @@ class SemantikProfileTests(unittest.TestCase):
         profile = cfg["semantik"]
         self.assertIn("src/semantik_architect", profile["active_python_roots"])
         self.assertIn("schemas/gf_bridge_spec.schema.json", profile["schema_files"])
+        self.assertIn("schemas/kristal_v6_communication_projection.schema.json", profile["schema_files"])
+        self.assertIn("src/semantik_architect/adapters/ecosystem/kristal_v6.py", profile["required_paths"])
         self.assertNotIn("app", profile["local_packages"])
         self.assertEqual(profile["runtime_root"], "runtime")
 

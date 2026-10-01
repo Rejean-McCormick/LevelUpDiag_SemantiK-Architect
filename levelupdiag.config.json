@@ -131,7 +131,12 @@
       "src/semantik_architect/adapters/inbound/http/server.py",
       "src/semantik_architect/conformance/release.py",
       "tools/validate_repository.py",
-      "tools/build_runtime_manifest.py"
+      "tools/build_runtime_manifest.py",
+      "docs/reference/KRISTAL_V6_COMMUNICATION_PROJECTION.md",
+      "schemas/kristal_v6_communication_projection.schema.json",
+      "examples/kristal_v6_communication_projection.json",
+      "src/semantik_architect/adapters/ecosystem/kristal_v6.py",
+      "tests/unit/test_kristal_v6_acl.py"
     ],
     "forbidden_paths": [
       "app",
@@ -182,7 +187,8 @@
       "schemas/gf_bridge_spec.schema.json",
       "schemas/lexical_artifact.schema.json",
       "schemas/conformance_suite.schema.json",
-      "schemas/runtime_activation.schema.json"
+      "schemas/runtime_activation.schema.json",
+      "schemas/kristal_v6_communication_projection.schema.json"
     ],
     "schema_example_pairs": [
       [
@@ -192,6 +198,10 @@
       [
         "examples/orgo_fr_result.json",
         "schemas/communication_result.schema.json"
+      ],
+      [
+        "examples/kristal_v6_communication_projection.json",
+        "schemas/kristal_v6_communication_projection.schema.json"
       ]
     ],
     "runtime_root": "runtime",

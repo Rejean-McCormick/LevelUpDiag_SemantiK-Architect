@@ -1,11 +1,11 @@
 # LevelUpDiag for SemantiK Architect v1
 
-**Profile version:** 2.1.3  
+**Profile version:** 2.2.0  
 **Target:** `C:\mycode\SemantiK_Architect\SemantiK_Architect`  
 **Mode:** read-oriented external-target diagnostics  
 **Dependency policy:** standard-library diagnostic core; target tooling is invoked only when explicitly required by the profile
 
-This LevelUpDiag profile is aligned with the clean SemantiK Architect v1 architecture.
+This LevelUpDiag profile is aligned with the clean SemantiK Architect v1 architecture, including the SemantiK Architect 1.2.0 Kristal v6 communication boundary.
 It diagnoses **SA itself** as a deterministic semantic-to-human communication engine whose
 canonical pipeline is:
 
@@ -62,7 +62,7 @@ Evidence is written under the target repository:
 |---|---|
 | S10 | Architecture Lock — required locks/schemas/source tree and one canonical architecture |
 | S20 | Python Architecture Integrity — syntax/imports, hexagonal dependency direction, PGF confinement, no language-code branches |
-| S30 | Contract & Schema Integrity — all v1 schemas, examples and documentation-manifest alignment |
+| S30 | Contract & Schema Integrity — all schemas/examples plus executable Kristal v6 traceability/non-inference verification |
 | S40 | RuntimeSet & Capability Model — composed immutable runtime manifests, hashes and release validation when deployed |
 | S50 | SA↔GF Contract — operation registry, strict bridge consumption and optional PGF-binding readiness |
 | S60 | Faithfulness & Planning Invariants — semantic→communication→language probe and exact obligation/reference coverage |

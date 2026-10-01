@@ -1,6 +1,6 @@
 # LevelUpDiag SemantiK Architect profile manifest
 
-Profile version: **2.1.3**
+Profile version: **2.2.0**
 
 Target architecture: **SemantiK Architect v1 clean canonical repository**.
 
@@ -21,3 +21,5 @@ Key profile rules:
 - `deep` adds fail-closed semantic probes, synthetic RuntimeSet corruption, bridge/lexical attacks, deterministic concurrent rendering, and isolated wheel packaging/import;
 - missing real-language RuntimeSets remain visible without being misclassified as source defects;
 - no dependency installation, network access, GF compilation, server startup or target mutation is performed.
+
+Profile 2.2.0 additionally recognizes the SemantiK Architect 1.2.0 Kristal v6 communication projection and verifies its fail-closed traceability/non-inference invariant in S30.

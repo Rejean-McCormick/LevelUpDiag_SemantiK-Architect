@@ -118,3 +118,51 @@ print(json.dumps({"available":True,"errors":errors}))
         else "The documentation manifest does not index every active schema contract.",
         evidence=missing_refs or None,
     )
+
+
+    # Kristal v6 boundary: prove explicit projection, traceability and non-inference.
+    kristal_probe = r"""
+import json
+from pathlib import Path
+from semantik_architect.adapters.ecosystem.kristal_v6 import KristalV6Acl, KristalV6ProjectionError
+
+data=json.loads(Path('examples/kristal_v6_communication_projection.json').read_text(encoding='utf-8'))
+acl=KristalV6Acl()
+req=acl.map_request(data,target_language='fr',target_locale='fr-CA',capability_profile='orgo-operational-1')
+force=req.obligations[0].force.value
+count=len(req.obligations)
+aid=data['selected_assertions'][0]['assertion_id']
+role=req.support_values(aid,'kristal-v6:record_role')
+auto=json.loads(json.dumps(data))
+auto['selected_assertions'][0]['actionability']={'mode':'automatic','requires_human_validation':False}
+req2=acl.map_request(auto,target_language='fr',target_locale='fr-CA',capability_profile='orgo-operational-1')
+non_inference=(len(req2.obligations)==count and req2.obligations[0].force.value==force)
+bad=json.loads(json.dumps(data))
+bad['communication_request']['semantic_graph']['statements'][0]['source_refs']=[]
+bad['communication_request']['obligations'][0]['source_refs']=[]
+traceability_rejected=False
+try:
+    acl.map_request(bad,target_language='fr',target_locale='fr-CA',capability_profile='orgo-operational-1')
+except KristalV6ProjectionError:
+    traceability_rejected=True
+print(json.dumps({'force':force,'count':count,'role':list(role),'non_inference':non_inference,'traceability_rejected':traceability_rejected}))
+"""
+    probe = run_target_python(cfg, ["-c", kristal_probe], timeout=90)
+    data = json_from_stdout(probe)
+    ok = (
+        probe.get("exit_code") == 0
+        and isinstance(data, dict)
+        and data.get("non_inference") is True
+        and data.get("traceability_rejected") is True
+        and data.get("role") == ["decision"]
+    )
+    report.add(
+        "semantik.contracts.kristal_v6_acl",
+        "PASS" if ok else "FAIL",
+        "contracts",
+        "Kristal v6 ACL preserves explicit obligations/force, selected assertion metadata and fail-closed traceability without inferring communication from actionability."
+        if ok
+        else "Kristal v6 communication projection boundary failed its executable non-inference/traceability probe.",
+        evidence=data if isinstance(data, dict) else probe,
+        recommendation=None if ok else "Restore the locked KristalV6Acl projection contract before release.",
+    )

@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.2.0 — 2026-10-01
+
+- Aligned diagnostics with SemantiK Architect 1.2.0.
+- Added Kristal v6 communication projection schema/example/adapter to the required contract surface.
+- Added executable S30 checks for assertion traceability and non-inference from `actionability`.
+- Kept RuntimeSet/GF diagnostics unchanged.
+
+
 ## 2.1.3 — 2026-09-25
 
 - hardened S70 so CLI module execution treats `RuntimeWarning` as an error;
