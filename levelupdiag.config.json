@@ -136,7 +136,22 @@
       "schemas/kristal_v6_communication_projection.schema.json",
       "examples/kristal_v6_communication_projection.json",
       "src/semantik_architect/adapters/ecosystem/kristal_v6.py",
-      "tests/unit/test_kristal_v6_acl.py"
+      "tests/unit/test_kristal_v6_acl.py",
+      "docs/15_ECOSYSTEM_BOUNDARIES.md",
+      "docs/reference/KRISTAL_KRISTALL_V7_ALIGNMENT.md",
+      "docs/adr/ADR-0015-kristall-v7-ecosystem-boundary.md",
+      "docs/reference/MATHKRISTAL_FORMULA_IR_PROJECTION.md",
+      "docs/reference/INFORMATH_MATH_REALIZATION.md",
+      "schemas/mathkristal_formula_ir.schema.json",
+      "schemas/mathkristal_formula_projection.schema.json",
+      "schemas/informath_runtime_config.schema.json",
+      "schemas/math_symbol_registry.schema.json",
+      "examples/mathkristal_euler_formula.json",
+      "examples/mathkristal_euler_projection.json",
+      "src/semantik_architect/adapters/ecosystem/mathkristal.py",
+      "src/semantik_architect/adapters/realization/informath.py",
+      "tests/unit/test_mathkristal_acl.py",
+      "tests/unit/test_informath_math_realizer.py"
     ],
     "forbidden_paths": [
       "app",
@@ -188,7 +203,11 @@
       "schemas/lexical_artifact.schema.json",
       "schemas/conformance_suite.schema.json",
       "schemas/runtime_activation.schema.json",
-      "schemas/kristal_v6_communication_projection.schema.json"
+      "schemas/kristal_v6_communication_projection.schema.json",
+      "schemas/mathkristal_formula_ir.schema.json",
+      "schemas/mathkristal_formula_projection.schema.json",
+      "schemas/informath_runtime_config.schema.json",
+      "schemas/math_symbol_registry.schema.json"
     ],
     "schema_example_pairs": [
       [
@@ -202,6 +221,14 @@
       [
         "examples/kristal_v6_communication_projection.json",
         "schemas/kristal_v6_communication_projection.schema.json"
+      ],
+      [
+        "examples/mathkristal_euler_formula.json",
+        "schemas/mathkristal_formula_ir.schema.json"
+      ],
+      [
+        "examples/mathkristal_euler_projection.json",
+        "schemas/mathkristal_formula_projection.schema.json"
       ]
     ],
     "runtime_root": "runtime",
@@ -229,14 +256,17 @@
       "relative.object",
       "nominal.apposition",
       "comparison.comparative",
-      "comparison.superlative"
+      "comparison.superlative",
+      "math.informalize_formula"
     ],
     "public_sdk_methods": [
       "render",
       "validate_request",
       "explain",
       "capabilities",
-      "validate_runtime"
+      "validate_runtime",
+      "project_mathkristal",
+      "render_mathkristal"
     ],
     "http_paths": [
       "/health",
@@ -253,7 +283,9 @@
       "capabilities",
       "validate-runtime",
       "conformance",
-      "serve"
+      "serve",
+      "project-math",
+      "render-math"
     ],
     "optional_runtime_modules": [
       "pgf"

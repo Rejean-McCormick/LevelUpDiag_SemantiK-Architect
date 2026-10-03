@@ -1,4 +1,4 @@
-# SemantiK Architect v1 / 1.2 diagnostic profile
+# SemantiK Architect v1 / 1.3 diagnostic profile
 
 This LevelUpDiag profile treats the locked SemantiK Architect v1 contracts as the diagnostic
 authority.
@@ -45,7 +45,7 @@ Override with `--target` or `levelupdiag.config.local.json`.
 |---|---|
 | S10 | Architecture locks, canonical src tree, required v1 files, no competing application/grammar tree |
 | S20 | Python syntax/import integrity, hexagonal direction, PGF adapter confinement, no direct per-language branches |
-| S30 | Twelve JSON Schemas, canonical examples, schema IDs, documentation manifest, and executable Kristal v6 ACL traceability/non-inference probe |
+| S30 | Sixteen JSON Schemas, canonical examples, schema IDs, documentation manifest, MathKristal contracts, and executable Kristal portable-v6 ACL traceability/non-inference + v7-baseline probe |
 | S40 | RuntimeSet manifests, artifact/capability hashes, public release validation when artifacts are deployed |
 | S50 | SA↔GF operation registry, strict bridge slot/feature consumption, PGF binding readiness |
 | S60 | Pure semantic→communication→language planning plus positive/negative coverage invariant probe |
@@ -78,6 +78,8 @@ modify capability manifests, or patch target source. Evidence is written only un
 
 The deep suite MUST remain target-read-only. Runtime corruption is performed only on synthetic RuntimeSets under temporary directories. Packaging is tested from a temporary source copy. A failing adversarial case is a product/contract signal and MUST NOT be converted to `WARN` merely because the happy-path suite passes.
 
-## Kristal v6 boundary
+## Kristal / Kristall boundary
 
-For SemantiK Architect 1.2.0+, S30 requires the explicit `semantik.kristal-v6.communication-projection/1.0` schema, example and adapter. It proves that selected assertions remain source-traceable and that changing `actionability` to `automatic` does not create an obligation or alter communicative force.
+For SemantiK Architect `1.3.0-alpha.2`, S30 retains the explicit `semantik.kristal-v6.communication-projection/1.0` portable schema/example/adapter and additionally verifies the declared Kristal/Kristall `7.0.0-draft.3.2` design baseline. It proves that selected assertions remain source-traceable, changing `actionability` to `automatic` does not create an obligation or alter communicative force, and DaaT is not treated as the communication-selection authority.
+
+S30 also includes the 1.3 MathKristal/Informath schema surface. Grammar-development `.gf` files remain forbidden in the target SA repository.

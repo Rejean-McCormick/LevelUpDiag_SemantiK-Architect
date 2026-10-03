@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.3.0 — 2026-10-03
+
+- Aligned diagnostics with SemantiK Architect `1.3.0-alpha.2`.
+- Retains the portable Kristal v6 projection checks and additionally verifies `kristal_state/6.0` plus Kristal/Kristall `7.0.0-draft.3.2` baseline metadata.
+- Adds the four MathKristal/Informath JSON Schemas and canonical Euler examples to S30 schema validation.
+- Requires the current ecosystem-boundary/ADR documents and MathKristal/Informath adapters/tests.
+- Adds SDK/CLI surface checks for `project_mathkristal`, `render_mathkristal`, `project-math`, and `render-math`.
+- Keeps `.gf` grammar-development sources forbidden in the target SemantiK Architect repository.
+- Normalizes active documentation to **DaaT** / `daat` semantics through the target boundary checks.
+
 ## 2.2.0 — 2026-10-01
 
 - Aligned diagnostics with SemantiK Architect 1.2.0.

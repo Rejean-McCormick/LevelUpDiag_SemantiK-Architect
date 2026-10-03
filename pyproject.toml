@@ -1,7 +1,7 @@
 [project]
 name = "levelupdiag-semantik-architect"
-version = "2.2.0"
-description = "LevelUpDiag diagnostics profile aligned with SemantiK Architect v1 / 1.2"
+version = "2.3.0"
+description = "LevelUpDiag diagnostics profile aligned with SemantiK Architect v1 / 1.3"
 requires-python = ">=3.10"
 dependencies = []
 

@@ -145,7 +145,7 @@ try:
     acl.map_request(bad,target_language='fr',target_locale='fr-CA',capability_profile='orgo-operational-1')
 except KristalV6ProjectionError:
     traceability_rejected=True
-print(json.dumps({'force':force,'count':count,'role':list(role),'non_inference':non_inference,'traceability_rejected':traceability_rejected}))
+print(json.dumps({'force':force,'count':count,'role':list(role),'non_inference':non_inference,'traceability_rejected':traceability_rejected,'portable_contract':acl.PORTABLE_CONTRACT,'kristall_baseline':acl.KRISTALL_DESIGN_BASELINE}))
 """
     probe = run_target_python(cfg, ["-c", kristal_probe], timeout=90)
     data = json_from_stdout(probe)
@@ -155,14 +155,16 @@ print(json.dumps({'force':force,'count':count,'role':list(role),'non_inference':
         and data.get("non_inference") is True
         and data.get("traceability_rejected") is True
         and data.get("role") == ["decision"]
+        and data.get("portable_contract") == "kristal_state/6.0"
+        and data.get("kristall_baseline") == "7.0.0-draft.3.2"
     )
     report.add(
         "semantik.contracts.kristal_v6_acl",
         "PASS" if ok else "FAIL",
         "contracts",
-        "Kristal v6 ACL preserves explicit obligations/force, selected assertion metadata and fail-closed traceability without inferring communication from actionability."
+        "Kristal portable-v6 ACL preserves explicit obligations/force and traceability, does not infer communication from actionability, and declares the Kristal/Kristall 7.0.0-draft.3.2 design baseline."
         if ok
-        else "Kristal v6 communication projection boundary failed its executable non-inference/traceability probe.",
+        else "Kristal/Kristall communication projection boundary failed its executable portable-contract/non-inference/traceability/baseline probe.",
         evidence=data if isinstance(data, dict) else probe,
         recommendation=None if ok else "Restore the locked KristalV6Acl projection contract before release.",
     )

@@ -1,6 +1,6 @@
 # LevelUpDiag SemantiK Architect profile manifest
 
-Profile version: **2.2.0**
+Profile version: **2.3.0**
 
 Target architecture: **SemantiK Architect v1 clean canonical repository**.
 
@@ -22,4 +22,4 @@ Key profile rules:
 - missing real-language RuntimeSets remain visible without being misclassified as source defects;
 - no dependency installation, network access, GF compilation, server startup or target mutation is performed.
 
-Profile 2.2.0 additionally recognizes the SemantiK Architect 1.2.0 Kristal v6 communication projection and verifies its fail-closed traceability/non-inference invariant in S30.
+Profile 2.3.0 aligns to SemantiK Architect `1.3.0-alpha.2`: it keeps the portable Kristal v6 traceability/non-inference invariant, verifies the Kristal/Kristall `7.0.0-draft.3.2` declared baseline, covers the MathKristal/Informath schemas, and enforces that grammar-development `.gf` sources stay outside SA.

@@ -13,9 +13,9 @@ def run(cfg, report):
         "semantik.architecture.required_contracts",
         "FAIL" if missing else "PASS",
         "semantik_architecture",
-        "The locked v1 architecture, schemas, source boundaries and release tools are present."
+        "The locked v1/1.3 architecture, schemas, source boundaries and release tools are present."
         if not missing
-        else "One or more required SemantiK Architect v1 contracts or source boundaries are missing.",
+        else "One or more required SemantiK Architect v1/1.3 contracts or source boundaries are missing.",
         evidence=missing or {"required_path_count": len(required)},
         recommendation=None
         if not missing
