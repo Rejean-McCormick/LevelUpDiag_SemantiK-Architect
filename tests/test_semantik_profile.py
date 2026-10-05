@@ -1,9 +1,11 @@
 import json
 import os
+import re
 import tempfile
 import unittest
 from pathlib import Path
 
+from levelupdiag_core import VERSION
 from levelupdiag_core.semantik import (
     module_exists,
     normalize_distribution,
@@ -55,11 +57,25 @@ class SemantikProfileTests(unittest.TestCase):
         data = json.loads((root / "levelupdiag_manifest.json").read_text(encoding="utf-8"))
         ids = {x["id"] for x in data["levels"]}
         self.assertTrue({"S10", "S20", "S30", "S40", "S50", "S60", "S70", "S80", "S90", "S100", "S110", "S120"}.issubset(ids))
-        self.assertEqual(data["suite_version"], "2.2.0")
+        self.assertEqual(data["standard_version"], VERSION)
+        self.assertEqual(data["suite_version"], VERSION)
         self.assertIn("semantik", data["campaigns"])
         self.assertIn("S80", data["campaigns"]["standard"]["levels"])
         self.assertNotIn("S90", data["campaigns"]["standard"]["levels"])
         self.assertEqual(data["campaigns"]["deep"]["levels"][-4:], ["S90", "S100", "S110", "S120"])
+
+    def test_version_surfaces_are_consistent(self):
+        root = Path(__file__).resolve().parents[1]
+        manifest = json.loads((root / "levelupdiag_manifest.json").read_text(encoding="utf-8"))
+        pyproject = (root / "pyproject.toml").read_text(encoding="utf-8")
+        readme = (root / "README.md").read_text(encoding="utf-8")
+
+        match = re.search(r'(?m)^version\s*=\s*"([^"]+)"\s*$', pyproject)
+        self.assertIsNotNone(match, "pyproject.toml project version is missing")
+        self.assertEqual(match.group(1), VERSION)
+        self.assertEqual(manifest["standard_version"], VERSION)
+        self.assertEqual(manifest["suite_version"], VERSION)
+        self.assertIn(f"**Profile version:** {VERSION}", readme)
 
     def test_config_targets_clean_v1_tree(self):
         root = Path(__file__).resolve().parents[1]

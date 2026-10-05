@@ -1,9 +1,9 @@
 {
   "schema": "levelupdiag.manifest.v2",
   "standard": "LevelUpDiag",
-  "standard_version": "2.2.0",
+  "standard_version": "2.3.0",
   "suite_name": "LevelUpDiag for SemantiK Architect",
-  "suite_version": "2.2.0",
+  "suite_version": "2.3.0",
   "repository_mode": "external-target-specialized-diagnostics-profile",
   "control_dir_default": ".levelupdiag",
   "levels": [

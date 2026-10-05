@@ -1,6 +1,6 @@
 # Profile self-test
 
-Profile 2.1 is self-tested at two layers.
+Profile 2.3 is self-tested at two layers.
 
 ## Diagnostics-frame tests
 
